@@ -61,7 +61,7 @@ interface JamendoApiService {
     companion object {
         const val BASE_URL = "https://api.jamendo.com/v3.0/"
         // Register free at: https://devportal.jamendo.com
-        const val JAMENDO_CLIENT_ID = "YOUR_JAMENDO_CLIENT_ID"
+        const val JAMENDO_CLIENT_ID = "605f5d8a"
     }
 }
 
