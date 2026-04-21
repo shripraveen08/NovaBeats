@@ -17,6 +17,7 @@ import com.novabeats.data.local.entities.RecentlyPlayedEntity
 import com.novabeats.data.local.entities.SongEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -48,14 +49,20 @@ class PlayerViewModel @Inject constructor(
     private var controller: MediaController? = null
     private var controllerFuture: ListenableFuture<MediaController>? = null
 
-    init { connectToService() }
+    private var sleepJob: Job? = null
+
+    init {
+        connectToService()
+    }
 
     private fun connectToService() {
         val token = SessionToken(
             context,
             ComponentName(context, NovaBeatPlayerService::class.java)
         )
+
         controllerFuture = MediaController.Builder(context, token).buildAsync()
+
         controllerFuture?.addListener({
             controller = controllerFuture?.get()
             controller?.addListener(playerListener)
@@ -67,9 +74,11 @@ class PlayerViewModel @Inject constructor(
         override fun onIsPlayingChanged(isPlaying: Boolean) {
             _state.update { it.copy(isPlaying = isPlaying) }
         }
+
         override fun onPlaybackStateChanged(state: Int) {
             _state.update { it.copy(isLoading = state == Player.STATE_BUFFERING) }
         }
+
         override fun onMediaItemTransition(item: MediaItem?, reason: Int) {
             updateCurrentSong(item)
         }
@@ -89,9 +98,12 @@ class PlayerViewModel @Inject constructor(
 
     private fun updateCurrentSong(item: MediaItem?) {
         val songId = item?.mediaId ?: return
+
         viewModelScope.launch {
             val song = songDao.getSongById(songId)
+
             _state.update { it.copy(currentSong = song) }
+
             song?.let {
                 songDao.incrementPlayCount(it.id)
                 recentDao.upsertRecent(RecentlyPlayedEntity(it.id))
@@ -100,31 +112,35 @@ class PlayerViewModel @Inject constructor(
         }
     }
 
-    // ─── Public controls ──────────────────────────────────────────────────────
+    // ─── Public controls ─────────────────────────────────────────────
 
     fun playSong(song: SongEntity, queue: List<SongEntity> = emptyList()) {
         viewModelScope.launch {
+
+            val c = controller ?: return@launch
+
             val fullQueue = if (queue.isEmpty()) listOf(song) else queue
             val items = fullQueue.map { it.toMediaItem() }
             val index = fullQueue.indexOfFirst { it.id == song.id }.coerceAtLeast(0)
 
-            controller?.run {
-                setMediaItems(items, index, 0L)
-                prepare()
-                play()
-            }
+            c.setMediaItems(items, index, 0L)
+            c.prepare()
+            c.play()
+
             _state.update { it.copy(queue = fullQueue) }
 
-            // Save to DB if not already there
             songDao.upsertSong(song)
         }
     }
 
     fun togglePlayPause() {
-        controller?.run { if (isPlaying) pause() else play() }
+        controller?.run {
+            if (isPlaying) pause() else play()
+        }
     }
 
     fun seekNext() = controller?.seekToNextMediaItem()
+
     fun seekPrevious() = controller?.seekToPreviousMediaItem()
 
     fun seekTo(position: Long) = controller?.seekTo(position)
@@ -141,18 +157,24 @@ class PlayerViewModel @Inject constructor(
             Player.REPEAT_MODE_ALL -> Player.REPEAT_MODE_ONE
             else -> Player.REPEAT_MODE_OFF
         }
+
         controller?.repeatMode = next
         _state.update { it.copy(repeatMode = next) }
     }
 
     fun toggleLike(songId: String, liked: Boolean) {
-        viewModelScope.launch { songDao.setLiked(songId, liked) }
+        viewModelScope.launch {
+            songDao.setLiked(songId, liked)
+        }
     }
 
     fun setSleepTimer(minutes: Int) {
+        sleepJob?.cancel()
+
         _state.update { it.copy(sleepTimerMinutes = minutes) }
+
         if (minutes > 0) {
-            viewModelScope.launch {
+            sleepJob = viewModelScope.launch {
                 kotlinx.coroutines.delay(minutes * 60_000L)
                 controller?.pause()
                 _state.update { it.copy(sleepTimerMinutes = 0) }
@@ -161,11 +183,21 @@ class PlayerViewModel @Inject constructor(
     }
 
     fun getProgress(): Long = controller?.currentPosition ?: 0L
+
     fun getDuration(): Long = controller?.duration?.coerceAtLeast(0L) ?: 0L
 
     override fun onCleared() {
         controller?.removeListener(playerListener)
-        MediaController.releaseFuture(controllerFuture ?: return)
+
+        controllerFuture?.let {
+            MediaController.releaseFuture(it)
+        }
+
+        controller = null
+        controllerFuture = null
+
+        sleepJob?.cancel()
+
         super.onCleared()
     }
 }
@@ -173,7 +205,12 @@ class PlayerViewModel @Inject constructor(
 private fun SongEntity.toMediaItem(): MediaItem =
     MediaItem.Builder()
         .setMediaId(id)
-        .setUri(if (isDownloaded && localPath.isNotEmpty()) localPath else streamUrl)
+        .setUri(
+            if (isDownloaded && localPath.isNotEmpty())
+                localPath
+            else
+                streamUrl
+        )
         .setMediaMetadata(
             MediaMetadata.Builder()
                 .setTitle(title)
