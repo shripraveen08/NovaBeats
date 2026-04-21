@@ -1,0 +1,105 @@
+NovaBeats
+Copyright (C) 2024 NovaBeats Contributors
+
+This product includes software developed by the following open source projects,
+each under their respective licenses:
+
+=============================================================================
+APACHE 2.0 LICENSED COMPONENTS
+=============================================================================
+
+The following components are licensed under the Apache License, Version 2.0:
+http://www.apache.org/licenses/LICENSE-2.0
+
+1. AndroidX Media3 / ExoPlayer
+   Copyright (C) Google LLC
+   https://github.com/androidx/media
+
+2. Jetpack Compose
+   Copyright (C) Google LLC
+   https://developer.android.com/jetpack/compose
+
+3. Material Design Components for Android
+   Copyright (C) Google LLC
+   https://github.com/material-components/material-components-android
+
+4. AndroidX Room
+   Copyright (C) Google LLC
+   https://developer.android.com/jetpack/androidx/releases/room
+
+5. Dagger Hilt
+   Copyright (C) Google LLC
+   https://dagger.dev/hilt/
+
+6. Retrofit
+   Copyright (C) 2013 Square, Inc.
+   https://square.github.io/retrofit/
+
+7. OkHttp
+   Copyright (C) 2019 Square, Inc.
+   https://square.github.io/okhttp/
+
+8. Coil
+   Copyright (C) 2023 Coil Contributors
+   https://coil-kt.github.io/coil/
+
+9. Kotlinx Coroutines
+   Copyright (C) 2000-2020 JetBrains s.r.o.
+   https://github.com/Kotlin/kotlinx.coroutines
+
+10. Gson
+    Copyright (C) 2008 Google Inc.
+    https://github.com/google/gson
+
+11. AndroidX WorkManager
+    Copyright (C) Google LLC
+    https://developer.android.com/topic/libraries/architecture/workmanager
+
+12. AndroidX DataStore
+    Copyright (C) Google LLC
+    https://developer.android.com/topic/libraries/architecture/datastore
+
+13. AndroidX Palette
+    Copyright (C) Google LLC
+    https://developer.android.com/reference/androidx/palette/graphics/Palette
+
+14. AndroidX Core SplashScreen
+    Copyright (C) Google LLC
+    https://developer.android.com/guide/topics/ui/splash-screen
+
+    Apache License 2.0 Full Text:
+    http://www.apache.org/licenses/LICENSE-2.0
+
+=============================================================================
+GPL-3.0 INSPIRATION
+=============================================================================
+
+NovaBeats was architecturally inspired by the following GPL-3.0 projects.
+No source code was directly copied. Inspiration is not copyright infringement.
+
+- OuterTune (https://github.com/OuterTune/OuterTune)
+  Copyright (C) OuterTune Contributors
+  Licensed under GPL-3.0
+
+- InnerTune (https://github.com/z-huang/InnerTune)
+  Copyright (C) z-huang
+  Licensed under GPL-3.0
+
+=============================================================================
+MUSIC CONTENT
+=============================================================================
+
+NovaBeats accesses music through the following free and open APIs:
+
+- Jamendo (https://www.jamendo.com)
+  Music on Jamendo is licensed by artists under Creative Commons licenses.
+  API usage under Jamendo API Terms: https://developer.jamendo.com/terms
+
+- Internet Archive (https://archive.org)
+  Content in the public domain or openly licensed.
+  API usage under Internet Archive Terms: https://archive.org/about/terms.php
+
+NovaBeats does not own, host, or claim rights over any music content.
+All music rights belong to their respective creators.
+
+=============================================================================
