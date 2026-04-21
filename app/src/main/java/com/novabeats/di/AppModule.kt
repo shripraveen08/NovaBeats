@@ -2,6 +2,10 @@ package com.novabeats.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.DefaultLoadControl
+import androidx.media3.exoplayer.DefaultRenderersFactory
+import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
 import com.novabeats.data.local.NovaBeatDatabase
 import com.novabeats.data.local.dao.*
 import com.novabeats.data.remote.archive.ArchiveApiService
@@ -77,4 +81,14 @@ object AppModule {
     @Provides @Singleton
     fun provideArchiveApi(@Named("archive") retrofit: Retrofit): ArchiveApiService =
         retrofit.create(ArchiveApiService::class.java)
+
+    // --- ExoPlayer (Media3) ---
+
+    @Provides @Singleton
+    fun provideExoPlayer(@ApplicationContext context: Context): ExoPlayer =
+        ExoPlayer.Builder(context)
+            .setLoadControl(DefaultLoadControl())
+            .setRenderersFactory(DefaultRenderersFactory(context))
+            .setTrackSelector(DefaultTrackSelector(context))
+            .build()
 }
