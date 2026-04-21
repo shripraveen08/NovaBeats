@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             NovaBeatTheme {
-                NovaBeatApp()
+                NovaBeatAppContent()
             }
         }
     }
@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NovaBeatApp() {
+fun NovaBeatAppContent() {
     val navController = rememberNavController()
     val playerVm: PlayerViewModel = hiltViewModel()
     val playerState by playerVm.state.collectAsState()
