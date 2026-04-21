@@ -27,6 +27,91 @@ jobs:
         with:
           gradle-version: '8.4'
 
+      - name: Create launcher icons
+        run: |
+          for dir in mipmap-mdpi mipmap-hdpi mipmap-xhdpi mipmap-xxhdpi mipmap-xxxhdpi mipmap-anydpi-v26; do
+            mkdir -p app/src/main/res/$dir
+          done
+
+          python3 - << 'PYEOF'
+          import struct, zlib
+
+          def make_png(size, out_path):
+              width = height = size
+              cx, cy, r = width//2, height//2, width//2
+              pixels = []
+              for y in range(height):
+                  row = []
+                  for x in range(width):
+                      dx, dy = x - cx, y - cy
+                      if dx*dx + dy*dy <= r*r:
+                          row += [0x1D, 0xB9, 0x54, 0xFF]
+                      else:
+                          row += [0x00, 0x00, 0x00, 0x00]
+                  pixels.append(bytes(row))
+
+              def png_chunk(name, data):
+                  c = zlib.crc32(name + data) & 0xffffffff
+                  return struct.pack('>I', len(data)) + name + data + struct.pack('>I', c)
+
+              raw = b''
+              for row in pixels:
+                  raw += b'\x00' + row
+              compressed = zlib.compress(raw, 9)
+              png = b'\x89PNG\r\n\x1a\n'
+              png += png_chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 6, 0, 0, 0))
+              png += png_chunk(b'IDAT', compressed)
+              png += png_chunk(b'IEND', b'')
+              with open(out_path, 'wb') as f:
+                  f.write(png)
+
+          sizes = {'mipmap-mdpi':48,'mipmap-hdpi':72,'mipmap-xhdpi':96,'mipmap-xxhdpi':144,'mipmap-xxxhdpi':192}
+          base = 'app/src/main/res'
+          for folder, size in sizes.items():
+              make_png(size, f'{base}/{folder}/ic_launcher.png')
+              make_png(size, f'{base}/{folder}/ic_launcher_round.png')
+              print(f'Created {folder} icons ({size}x{size})')
+          PYEOF
+
+          cat > app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:drawable="@color/ic_launcher_background"/>
+              <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+          </adaptive-icon>
+          XMLEOF
+
+          cat > app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+              <background android:drawable="@color/ic_launcher_background"/>
+              <foreground android:drawable="@drawable/ic_launcher_foreground"/>
+          </adaptive-icon>
+          XMLEOF
+
+          mkdir -p app/src/main/res/values
+          cat > app/src/main/res/values/colors.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <color name="ic_launcher_background">#1DB954</color>
+          </resources>
+          XMLEOF
+
+          cat > app/src/main/res/drawable/ic_launcher_foreground.xml << 'XMLEOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <vector xmlns:android="http://schemas.android.com/apk/res/android"
+              android:width="108dp"
+              android:height="108dp"
+              android:viewportWidth="108"
+              android:viewportHeight="108">
+              <path
+                  android:fillColor="#FFFFFF"
+                  android:pathData="M42,36 L42,72 L74,54 Z"/>
+          </vector>
+          XMLEOF
+
+          echo "All icons created!"
+
       - name: Cache Gradle
         uses: actions/cache@v4.2.3
         with:
