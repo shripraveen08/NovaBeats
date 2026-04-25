@@ -120,7 +120,9 @@ fun FullPlayerScreen(
             Row(modifier = Modifier.fillMaxWidth()) {
                 val (label, color) = when (song.source) {
                     "jiosaavn" -> "JioSaavn — Bollywood Music" to Color(0xFF1DB954)
+                    "soundcloud" -> "SoundCloud — Free Music" to Color(0xFFFF5500)
                     "archive" -> "Internet Archive — Public Domain" to Color(0xFF185FA5)
+                    "demo" -> "Demo — Sample Content" to Color(0xFF9E9E9E)
                     "local"   -> "Local File" to Color(0xFF854F0B)
                     else      -> song.source to Color.Gray
                 }

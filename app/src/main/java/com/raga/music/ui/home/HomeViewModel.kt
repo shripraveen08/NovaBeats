@@ -48,9 +48,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             
-            // Try SoundCloud first (most reliable)
+            // Try Internet Archive first (most reliable)
             try {
-                val songs = soundCloud.getBollywoodSongs()
+                val songs = loadInternetArchiveMusic()
                 if (songs.isNotEmpty()) {
                     songDao.upsertSongs(songs)
                     _uiState.update { it.copy(bollywoodTrending = songs, isLoading = false) }
@@ -60,7 +60,7 @@ class HomeViewModel @Inject constructor(
                 // Continue to next option
             }
             
-            // Try JioSaavn as backup
+            // Try JioSaavn as backup (might work sometimes)
             try {
                 val songs = jioSaavn.getTrendingBollywoodSongs()
                 if (songs.isNotEmpty()) {
@@ -74,6 +74,62 @@ class HomeViewModel @Inject constructor(
             
             // Load fallback content
             loadFallbackContent()
+        }
+    }
+    
+    private suspend fun loadInternetArchiveMusic(): List<SongEntity> {
+        return try {
+            val songs = mutableListOf<SongEntity>()
+            
+            // Search for Bollywood music specifically
+            val bollywoodQueries = listOf(
+                "title:(bollywood OR hindi OR indian) AND mediatype:audio",
+                "title:(song OR music) AND (bollywood OR hindi) AND mediatype:audio",
+                "description:(bollywood OR hindi) AND mediatype:audio",
+                "creator:(indian OR hindi) AND mediatype:audio"
+            )
+            
+            for (query in bollywoodQueries) {
+                try {
+                    val response = archive.searchMusic(query = query, rows = 8)
+                    response.response?.docs?.take(3)?.forEach { doc ->
+                        try {
+                            val item = archive.getItemMetadata(doc.identifier)
+                            val songEntities = item.toSongEntities()
+                            if (songEntities.isNotEmpty()) {
+                                songs += songEntities.first()
+                            }
+                        } catch (e: Exception) {
+                            // Skip this item
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Continue to next query
+                }
+            }
+            
+            // If no Bollywood songs found, get general music
+            if (songs.isEmpty()) {
+                val response = archive.searchMusic(
+                    query = "(title:(song OR music) AND mediatype:audio) NOT (mediatype:collection)",
+                    rows = 8
+                )
+                response.response?.docs?.take(5)?.forEach { doc ->
+                    try {
+                        val item = archive.getItemMetadata(doc.identifier)
+                        val songEntities = item.toSongEntities()
+                        if (songEntities.isNotEmpty()) {
+                            songs += songEntities.first()
+                        }
+                    } catch (e: Exception) {
+                        // Skip this item
+                    }
+                }
+            }
+            
+            songs
+        } catch (e: Exception) {
+            emptyList()
         }
     }
     
@@ -139,13 +195,13 @@ class HomeViewModel @Inject constructor(
             _uiState.update { it.copy(isLoading = true) }
             try {
                 val songs = when (tag) {
-                    "focus" -> soundCloud.getFocusSongs(20)
-                    "sleep" -> soundCloud.searchSongs("sleep meditation", 20)
-                    "workout" -> soundCloud.getWorkoutSongs(20)
-                    "chill" -> soundCloud.searchSongs("chill lofi", 20)
-                    "party" -> soundCloud.getPartySongs(20)
-                    "sad" -> soundCloud.getSadSongs(20)
-                    else -> soundCloud.searchSongs(tag, 20)
+                    "focus" -> loadBollywoodMoodMusic("focus study instrumental")
+                    "sleep" -> loadBollywoodMoodMusic("sleep meditation ambient")
+                    "workout" -> loadBollywoodMoodMusic("workout motivation energetic")
+                    "chill" -> loadBollywoodMoodMusic("chill lofi relax")
+                    "party" -> loadBollywoodMoodMusic("party dance upbeat")
+                    "sad" -> loadBollywoodMoodMusic("sad emotional romantic")
+                    else -> loadBollywoodMoodMusic(tag)
                 }
                 songDao.upsertSongs(songs)
                 _uiState.update { it.copy(bollywoodTrending = songs, isLoading = false) }
@@ -154,12 +210,72 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+    
+    private suspend fun loadBollywoodMoodMusic(baseQuery: String): List<SongEntity> {
+        return try {
+            val songs = mutableListOf<SongEntity>()
+            
+            // Search for Bollywood music with mood
+            val bollywoodMoodQueries = listOf(
+                "title:($baseQuery) AND (bollywood OR hindi OR indian) AND mediatype:audio",
+                "title:($baseQuery) AND (song OR music) AND (bollywood OR hindi) AND mediatype:audio",
+                "description:($baseQuery) AND (bollywood OR hindi) AND mediatype:audio"
+            )
+            
+            for (query in bollywoodMoodQueries) {
+                try {
+                    val response = archive.searchMusic(query = query, rows = 10)
+                    response.response?.docs?.take(4)?.forEach { doc ->
+                        try {
+                            val item = archive.getItemMetadata(doc.identifier)
+                            val songEntities = item.toSongEntities()
+                            if (songEntities.isNotEmpty()) {
+                                songs += songEntities.first()
+                            }
+                        } catch (e: Exception) {
+                            // Skip this item
+                        }
+                    }
+                } catch (e: Exception) {
+                    // Continue to next query
+                }
+            }
+            
+            // If no Bollywood mood songs found, try general mood music
+            if (songs.isEmpty()) {
+                val response = archive.searchMusic(
+                    query = "title:($baseQuery) AND mediatype:audio",
+                    rows = 8
+                )
+                response.response?.docs?.take(6)?.forEach { doc ->
+                    try {
+                        val item = archive.getItemMetadata(doc.identifier)
+                        val songEntities = item.toSongEntities()
+                        if (songEntities.isNotEmpty()) {
+                            songs += songEntities.first()
+                        }
+                    } catch (e: Exception) {
+                        // Skip this item
+                    }
+                }
+            }
+            
+            // Last resort: try JioSaavn
+            if (songs.isEmpty()) {
+                songs.addAll(jioSaavn.searchSongs("$baseQuery bollywood", 8))
+            }
+            
+            songs
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 
     fun searchBollywood(query: String) {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
             try {
-                val songs = jioSaavn.searchSongs(query)
+                val songs = loadBollywoodMoodMusic(query)
                 songDao.upsertSongs(songs)
                 _uiState.update { it.copy(bollywoodTrending = songs, isLoading = false) }
             } catch (e: Exception) {

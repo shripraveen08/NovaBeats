@@ -56,15 +56,23 @@ class ExploreViewModel @Inject constructor(
 
             try {
                 if (source == "all" || source == "archive") {
-                    val r = archive.searchMusic(
-                        query = "title:($query) AND mediatype:audio",
-                        rows  = 10
+                    // Search for Bollywood music first
+                    val bollywoodQueries = listOf(
+                        "title:($query) AND (bollywood OR hindi OR indian) AND mediatype:audio",
+                        "title:($query) AND (song OR music) AND (bollywood OR hindi) AND mediatype:audio",
+                        "title:($query) AND mediatype:audio"
                     )
-                    // Fetch metadata for top 3 results to get stream URLs
-                    r.response?.docs?.take(3)?.forEach { doc ->
+                    
+                    for (bq in bollywoodQueries) {
                         try {
-                            val item = archive.getItemMetadata(doc.identifier)
-                            results += item.toSongEntities()
+                            val r = archive.searchMusic(query = bq, rows = 5)
+                            r.response?.docs?.take(2)?.forEach { doc ->
+                                try {
+                                    val item = archive.getItemMetadata(doc.identifier)
+                                    results += item.toSongEntities()
+                                } catch (_: Exception) {}
+                            }
+                            if (results.size >= 8) break // Stop if we have enough results
                         } catch (_: Exception) {}
                     }
                 }
