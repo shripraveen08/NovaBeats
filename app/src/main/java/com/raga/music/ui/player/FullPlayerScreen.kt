@@ -119,7 +119,7 @@ fun FullPlayerScreen(
             // ── Source Badge ──────────────────────────────────────────────────
             Row(modifier = Modifier.fillMaxWidth()) {
                 val (label, color) = when (song.source) {
-                    "jamendo" -> "Jamendo — Free CC Music" to Color(0xFF1DB954)
+                    "jiosaavn" -> "JioSaavn — Bollywood Music" to Color(0xFF1DB954)
                     "archive" -> "Internet Archive — Public Domain" to Color(0xFF185FA5)
                     "local"   -> "Local File" to Color(0xFF854F0B)
                     else      -> song.source to Color.Gray

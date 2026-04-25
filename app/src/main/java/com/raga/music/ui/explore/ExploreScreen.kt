@@ -36,7 +36,7 @@ fun ExploreScreen(
             onSearch        = { exploreVm.search(query) },
             active          = false,
             onActiveChange  = {},
-            placeholder     = { Text("Search free music…") },
+            placeholder     = { Text("Search Bollywood music…") },
             leadingIcon     = { Icon(Icons.Default.Search, null) },
             trailingIcon    = {
                 if (query.isNotEmpty()) {
@@ -56,7 +56,7 @@ fun ExploreScreen(
             modifier              = Modifier.padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            listOf("All", "Jamendo", "Archive").forEach { label ->
+            listOf("All", "JioSaavn", "Archive").forEach { label ->
                 FilterChip(
                     selected = uiState.activeSource == label.lowercase(),
                     onClick  = { exploreVm.setSource(label.lowercase()) },
@@ -84,8 +84,8 @@ fun ExploreScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text("🎵", style = MaterialTheme.typography.displayMedium)
                         Spacer(Modifier.height(8.dp))
-                        Text("Search millions of free tracks", style = MaterialTheme.typography.bodyLarge)
-                        Text("Powered by Jamendo & Internet Archive", style = MaterialTheme.typography.bodySmall,
+                        Text("Search millions of Bollywood tracks", style = MaterialTheme.typography.bodyLarge)
+                        Text("Powered by JioSaavn & Internet Archive", style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }

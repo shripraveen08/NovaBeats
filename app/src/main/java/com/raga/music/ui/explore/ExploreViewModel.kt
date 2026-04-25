@@ -6,8 +6,7 @@ import com.raga.music.data.local.dao.SongDao
 import com.raga.music.data.local.entities.SongEntity
 import com.raga.music.data.remote.archive.ArchiveApiService
 import com.raga.music.data.remote.archive.toSongEntities
-import com.raga.music.data.remote.jamendo.JamendoApiService
-import com.raga.music.data.remote.jamendo.toSongEntity
+import com.raga.music.data.remote.jiosaavn.JioSaavnRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -27,7 +26,7 @@ data class ExploreUiState(
 @HiltViewModel
 class ExploreViewModel @Inject constructor(
     private val songDao: SongDao,
-    private val jamendo: JamendoApiService,
+    private val jioSaavn: JioSaavnRepository,
     private val archive: ArchiveApiService
 ) : ViewModel() {
 
@@ -49,9 +48,9 @@ class ExploreViewModel @Inject constructor(
             val results = mutableListOf<SongEntity>()
 
             try {
-                if (source == "all" || source == "jamendo") {
-                    val r = jamendo.searchTracks(query = query)
-                    results += r.results.map { it.toSongEntity() }
+                if (source == "all" || source == "jiosaavn") {
+                    val r = jioSaavn.searchSongs(query, 10)
+                    results += r
                 }
             } catch (_: Exception) {}
 

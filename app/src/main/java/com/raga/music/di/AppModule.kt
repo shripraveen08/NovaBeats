@@ -10,6 +10,7 @@ import com.raga.music.data.local.RagaDatabase
 import com.raga.music.data.local.dao.*
 import com.raga.music.data.remote.archive.ArchiveApiService
 import com.raga.music.data.remote.jiosaavn.JioSaavnApiService
+import com.raga.music.data.remote.jiosaavn.JioSaavnRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,6 +83,10 @@ object AppModule {
     @Provides @Singleton
     fun provideJioSaavnApi(@Named("jiosaavn") retrofit: Retrofit): JioSaavnApiService =
         retrofit.create(JioSaavnApiService::class.java)
+
+    @Provides @Singleton
+    fun provideJioSaavnRepository(apiService: JioSaavnApiService): JioSaavnRepository =
+        JioSaavnRepository(apiService)
 
     // --- ExoPlayer (Media3) ---
 
