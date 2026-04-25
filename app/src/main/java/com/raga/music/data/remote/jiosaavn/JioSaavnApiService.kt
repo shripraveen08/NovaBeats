@@ -44,11 +44,11 @@ interface JioSaavnApiService {
     ): JioSaavnSearchResponse
 
     companion object {
-        // Using public API endpoints from JioSaavnAPI project
-        const val BASE_URL = "https://jiosaavnapi-bhuvaneshwaran1.vercel.app/"
+        // Using working public API endpoints from JioSaavnAPI project
+        const val BASE_URL = "https://jiosaavn-api-2.vercel.app/"
         // Alternative endpoints if needed:
         // const val BASE_URL = "https://jiosaavn-api.vercel.app/"
-        // const val BASE_URL = "https://jiosaavn-api-2.vercel.app/"
+        // const val BASE_URL = "https://jiosaavnapi-bhuvaneshwaran1.vercel.app/"
     }
 }
 

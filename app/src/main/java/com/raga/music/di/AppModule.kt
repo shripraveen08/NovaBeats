@@ -11,6 +11,8 @@ import com.raga.music.data.local.dao.*
 import com.raga.music.data.remote.archive.ArchiveApiService
 import com.raga.music.data.remote.jiosaavn.JioSaavnApiService
 import com.raga.music.data.remote.jiosaavn.JioSaavnRepository
+import com.raga.music.data.remote.soundcloud.SoundCloudApiService
+import com.raga.music.data.remote.soundcloud.SoundCloudRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -87,6 +89,24 @@ object AppModule {
     @Provides @Singleton
     fun provideJioSaavnRepository(apiService: JioSaavnApiService): JioSaavnRepository =
         JioSaavnRepository(apiService)
+
+    // ─── SoundCloud (Free Music — Legal Alternative) ─────────────────────────────
+
+    @Provides @Singleton @Named("soundcloud")
+    fun provideSoundCloudRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(SoundCloudApiService.BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+    @Provides @Singleton
+    fun provideSoundCloudApi(@Named("soundcloud") retrofit: Retrofit): SoundCloudApiService =
+        retrofit.create(SoundCloudApiService::class.java)
+
+    @Provides @Singleton
+    fun provideSoundCloudRepository(apiService: SoundCloudApiService): SoundCloudRepository =
+        SoundCloudRepository(apiService)
 
     // --- ExoPlayer (Media3) ---
 

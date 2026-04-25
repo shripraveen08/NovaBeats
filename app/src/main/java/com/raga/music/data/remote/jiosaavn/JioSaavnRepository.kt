@@ -48,7 +48,12 @@ class JioSaavnRepository @Inject constructor(
     suspend fun getTrendingBollywoodSongs(limit: Int = 20): List<SongEntity> {
         return try {
             val response = apiService.getTrendingSongs(limit = limit)
-            response.results.map { it.toSongEntity() }
+            // Check if response is valid and has results
+            if (response.status == "success" && response.results.isNotEmpty()) {
+                response.results.map { it.toSongEntity() }
+            } else {
+                emptyList()
+            }
         } catch (e: Exception) {
             emptyList()
         }

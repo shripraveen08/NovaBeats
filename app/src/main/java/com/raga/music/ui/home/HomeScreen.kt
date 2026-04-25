@@ -57,7 +57,7 @@ fun HomeScreen(
         }
 
         if (uiState.bollywoodTrending.isNotEmpty()) {
-            item { SectionTitle("🎬 Bollywood — Trending") }
+            item { SectionTitle("� Music — Trending") }
             item {
                 LazyRow(
                     contentPadding      = PaddingValues(horizontal = 16.dp),
@@ -93,7 +93,7 @@ fun HomeHeader() {
             color = MaterialTheme.colorScheme.primary
         )
         Text(
-            text  = "Your Bollywood Soundtrack",
+            text  = "Your Music Soundtrack",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
