@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.novabeats"
+    namespace = "com.raga.music"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.novabeats"
+        applicationId = "com.raga.music"
         minSdk = 23  // Android 6.0 — broader than OuterTune's 26
         targetSdk = 34
         versionCode = 1

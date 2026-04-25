@@ -1,22 +1,22 @@
-# NovaBeats 🎵
+# Raga 🎵
 
-A free, open-source Android music player. No subscriptions. No ads. No copyright issues.
+A free, open-source Bollywood music player. No subscriptions. No ads. Your soundtrack for every mood.
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Music: Creative Commons](https://img.shields.io/badge/Music-Creative%20Commons-green.svg)](https://creativecommons.org)
+[![Music: Bollywood](https://img.shields.io/badge/Music-Bollywood-green.svg)](https://www.jiosaavn.com)
 [![Music: Public Domain](https://img.shields.io/badge/Music-Public%20Domain-brightgreen.svg)](https://archive.org)
 
 ---
 
 ## Features
 
-- 🎵 Stream millions of free, legal tracks — no subscription needed
+- � Stream unlimited Bollywood songs — no subscription needed
 - 📥 Download songs for offline playback
 - 😴 Sleep timer with auto-fade
-- 🎭 Mood-based playlists (Focus, Sleep, Workout, Chill, Party)
+- 🎭 Mood-based playlists (Focus, Sleep, Workout, Chill, Party, Romantic, Sad)
 - 📋 Create and manage playlists
-- 🔍 Search across multiple free music sources
-- 🎨 Material 3 design with dynamic color (Android 12+)
+- 🔍 Search across Bollywood catalog
+- 🎨 Spotify-inspired design with Material 3
 - 📱 Works on Android 6.0 and above
 - 🔒 No account required, no data collected
 
@@ -26,11 +26,11 @@ A free, open-source Android music player. No subscriptions. No ads. No copyright
 
 | Source | License | Description |
 |--------|---------|-------------|
-| [Jamendo](https://www.jamendo.com) | Creative Commons | 600,000+ tracks by independent artists |
+| [JioSaavn](https://www.jiosaavn.com) | Bollywood Music | Extensive catalog of Bollywood and regional Indian songs |
 | [Internet Archive](https://archive.org) | Public Domain | Millions of historical and independent recordings |
 | Local Files | Your own files | MP3, FLAC, OGG, and more |
 
-**No YouTube Music.** NovaBeats deliberately does not use YouTube or any proprietary streaming service. Every track available through NovaBeats is either Creative Commons licensed or in the public domain.
+**No YouTube Music.** NovaBeats deliberately does not use YouTube or any proprietary streaming service. Every track available through NovaBeats is either freely available through JioSaavn's public API or in the public domain.
 
 ---
 
@@ -66,7 +66,7 @@ All libraries used in NovaBeats are open source. Full license texts are availabl
 | [Splash Screen API](https://developer.android.com/guide/topics/ui/splash-screen) | Google | Apache 2.0 |
 
 ### Music API Credits
-- **[Jamendo API](https://developer.jamendo.com/v3.0)** — Free API for Creative Commons music
+- **[JioSaavn API](https://github.com/cyberboysumanjay/JioSaavnAPI)** — Free unofficial API for Bollywood and Indian music
 - **[Internet Archive API](https://archive.org/developers/internetarchive/api.html)** — Free, open API for public domain content
 
 ---
@@ -74,24 +74,24 @@ All libraries used in NovaBeats are open source. Full license texts are availabl
 ## Legal Notices
 
 ### Copyright
-Copyright (C) 2024 NovaBeats Contributors
+Copyright (C) 2024 Raga Contributors
 
 ### License
-NovaBeats is free software: you can redistribute it and/or modify it under the terms of the **GNU General Public License version 3** as published by the Free Software Foundation.
+Raga is free software: you can redistribute it and/or modify it under the terms of the **GNU General Public License version 3** as published by the Free Software Foundation.
 
 This program is distributed in the hope that it will be useful, but **WITHOUT ANY WARRANTY**; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ### Music Content
-NovaBeats does not host, store, or distribute any music files. It provides an interface to:
-- **Jamendo** — music licensed under Creative Commons by their respective artists
+Raga does not host, store, or distribute any music files. It provides an interface to:
+- **JioSaavn** — Bollywood and Indian music available through public API endpoints
 - **Internet Archive** — recordings in the public domain or with open licenses
 
-All music rights belong to their respective creators and rights holders. NovaBeats simply provides a way to access music that the artists themselves have chosen to release freely.
+All music rights belong to their respective creators and rights holders. Raga simply provides a way to access music that is freely available through public APIs.
 
 ### No Affiliation
-NovaBeats is not affiliated with, endorsed by, or associated with:
+Raga is not affiliated with, endorsed by, or associated with:
 - YouTube or Google LLC
 - Spotify
 - Apple Music
@@ -99,16 +99,15 @@ NovaBeats is not affiliated with, endorsed by, or associated with:
 - Any other commercial music service
 
 ### Privacy
-NovaBeats collects **zero user data**. No analytics, no tracking, no accounts. All app data (library, playlists, downloads) stays on your device only.
+Raga collects **zero user data**. No analytics, no tracking, no accounts. All app data (library, playlists, downloads) stays on your device only.
 
 ---
 
 ## Disclaimer
 
 This software is provided "as is" without warranty of any kind. The authors are not responsible for how you use this application. Please respect the terms of the music sources you access through this app:
-- [Jamendo Terms of Service](https://www.jamendo.com/legal/terms-of-use)
+- [JioSaavn Terms of Service](https://www.jiosaavn.com/terms)
 - [Internet Archive Terms of Use](https://archive.org/about/terms.php)
-- [Creative Commons Licenses](https://creativecommons.org/licenses/)
 
 ---
 
@@ -124,4 +123,4 @@ See [BUILD_GUIDE.md](BUILD_GUIDE.md) for complete build instructions.
 
 ---
 
-*NovaBeats — Free music for everyone, forever.*
+*Raga — Your Bollywood Soundtrack, Forever.*

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Background circle - Spotify style -->
+    <path
+        android:fillColor="#191414"
+        android:pathData="M54,0 C83.8,0 108,24.2 108,54 C108,83.8 83.8,108 54,108 C24.2,108 0,83.8 0,54 C0,24.2 24.2,0 54,0 Z" />
+    
+    <!-- Sound waves coming from R -->
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M35,40 Q35,54 35,68 Q35,72 39,72 Q43,72 43,68 Q43,54 43,40 Q43,36 39,36 Q35,36 35,40 Z" />
+    
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M45,35 Q45,54 45,73 Q45,77 49,77 Q53,77 53,73 Q53,54 53,35 Q53,31 49,31 Q45,31 45,35 Z" />
+    
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M55,30 Q55,54 55,78 Q55,82 59,82 Q63,82 63,78 Q63,54 63,30 Q63,26 59,26 Q55,26 55,30 Z" />
+    
+    <!-- Letter R -->
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M68,35 Q68,50 68,65 Q68,70 73,70 Q78,70 78,65 Q78,50 78,35 Q78,30 73,30 Q68,30 68,35 Z" />
+    
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M68,50 Q73,45 78,50 Q80,52 78,54 Q73,59 68,54 Q66,52 68,50 Z" />
+    
+</vector>

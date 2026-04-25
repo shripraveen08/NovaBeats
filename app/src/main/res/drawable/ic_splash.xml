@@ -5,13 +5,31 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Green circle background -->
+    <!-- Dark circle background - Spotify style -->
     <path
-        android:fillColor="#1DB954"
+        android:fillColor="#191414"
         android:pathData="M54,54m-45,0a45,45 0,1 1,90 0a45,45 0,1 1,-90 0"/>
 
-    <!-- Play triangle -->
+    <!-- Sound waves -->
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M42,36 L42,72 L74,54 Z"/>
+        android:fillColor="#1DB954"
+        android:pathData="M30,35 Q30,54 30,73 Q30,77 34,77 Q38,77 38,73 Q38,54 38,35 Q38,31 34,31 Q30,31 30,35 Z" />
+    
+    <path
+        android:fillColor="#1ED760"
+        android:pathData="M40,30 Q40,54 40,78 Q40,82 44,82 Q48,82 48,78 Q48,54 48,30 Q48,26 44,26 Q40,26 40,30 Z" />
+    
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M50,25 Q50,54 50,83 Q50,87 54,87 Q58,87 58,83 Q58,54 58,25 Q58,21 54,21 Q50,21 50,25 Z" />
+
+    <!-- Letter R -->
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M65,35 Q65,50 65,65 Q65,70 70,70 Q75,70 75,65 Q75,50 75,35 Q75,30 70,30 Q65,30 65,35 Z" />
+    
+    <path
+        android:fillColor="#1DB954"
+        android:pathData="M65,50 Q70,45 75,50 Q77,52 75,54 Q70,59 65,54 Q63,52 65,50 Z" />
+    
 </vector>

@@ -14,21 +14,21 @@
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
-        android:name=".NovaBeatApp"
+        android:name="com.raga.music.RagaApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NovaBeats"
+        android:theme="@style/Theme.Raga"
         android:hardwareAccelerated="true">
 
         <!-- Main Activity -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.raga.music.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.NovaBeats.Splash"
+            android:theme="@style/Theme.Raga.Splash"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +44,7 @@
 
         <!-- Music Playback Service -->
         <service
-            android:name=".player.NovaBeatPlayerService"
+            android:name="com.raga.music.player.RagaPlayerService"
             android:exported="true"
             android:foregroundServiceType="mediaPlayback"
             android:stopWithTask="false">
