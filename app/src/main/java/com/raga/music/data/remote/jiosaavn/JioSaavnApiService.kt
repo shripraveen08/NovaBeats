@@ -130,10 +130,5 @@ fun JioSaavnSong.toSongEntity() =
             0L
         },
         source = "jiosaavn",
-        streamUrl = streamUrl,
-        downloadUrl = downloadUrl.takeIf { it.isNotEmpty() },
-        language = language,
-        year = year.toIntOrNull(),
-        lyrics = lyrics.takeIf { it.isNotEmpty() },
-        permaUrl = permaUrl
+        streamUrl = streamUrl
     )

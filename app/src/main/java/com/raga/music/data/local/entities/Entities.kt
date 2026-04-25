@@ -12,7 +12,7 @@ data class SongEntity(
     val album: String = "",
     val albumArtUrl: String = "",
     val duration: Long = 0L,          // milliseconds
-    val source: String,               // "youtube", "jamendo", "archive", "local"
+    val source: String,               // "youtube", "jiosaavn", "archive", "local"
     val streamUrl: String = "",
     val localPath: String = "",       // for downloaded / local files
     val isDownloaded: Boolean = false,

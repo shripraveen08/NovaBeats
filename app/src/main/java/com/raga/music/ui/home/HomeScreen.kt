@@ -58,14 +58,16 @@ fun HomeScreen(
 
         if (uiState.bollywoodTrending.isNotEmpty()) {
             item { SectionTitle("🎬 Bollywood — Trending") }
-            LazyRow(
-                contentPadding      = PaddingValues(horizontal = 16.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(uiState.bollywoodTrending) { song ->
-                    SongCard(song = song, onClick = {
-                        playerVm.playSong(song, uiState.bollywoodTrending)
-                    })
+            item {
+                LazyRow(
+                    contentPadding      = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(uiState.bollywoodTrending) { song ->
+                        SongCard(song = song, onClick = {
+                            playerVm.playSong(song, uiState.bollywoodTrending)
+                        })
+                    }
                 }
             }
         }
