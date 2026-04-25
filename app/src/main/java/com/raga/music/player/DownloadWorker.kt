@@ -29,7 +29,7 @@ class DownloadWorker @AssistedInject constructor(
         return try {
             downloadDao.updateProgress(songId, "downloading", 0)
 
-            val dir = File(applicationContext.getExternalFilesDir(null), "NovaBeats")
+            val dir = File(applicationContext.getExternalFilesDir(null), "Raga")
             dir.mkdirs()
             val file = File(dir, fileName)
 

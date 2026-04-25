@@ -15,8 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 /*
- * NovaBeats — Free Music Player for Android
- * Copyright (C) 2024 NovaBeats Contributors
+ * Raga — Bollywood Music Player for Android
+ * Copyright (C) 2024 Raga Contributors
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
- * NovaBeats is architecturally inspired by OuterTune (https://github.com/OuterTune/OuterTune)
+ * Raga is architecturally inspired by OuterTune (https://github.com/OuterTune/OuterTune)
  * and InnerTune (https://github.com/z-huang/InnerTune), both GPL-3.0 licensed.
  * No source code was copied. Inspiration is not copyright infringement.
  */
@@ -101,11 +101,11 @@ fun AboutScreen() {
             ) {
                 Text("🎵", style = MaterialTheme.typography.displayMedium)
                 Spacer(Modifier.height(8.dp))
-                Text("NovaBeats", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+                Text("Raga", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
                 Text("Version 1.0.0", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "Free music player — no subscription, no ads, no tracking",
+                    "Bollywood music player — no subscription, no ads, no tracking",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -119,7 +119,7 @@ fun AboutScreen() {
                     Text("License", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        "NovaBeats is open source software licensed under the GNU General Public License v3.0 (GPL-3.0). You are free to use, study, modify, and distribute this software under the same terms.",
+                        "Raga is open source software licensed under the GNU General Public License v3.0 (GPL-3.0). You are free to use, study, modify, and distribute this software under the same terms.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -142,7 +142,7 @@ fun AboutScreen() {
                     Text("Privacy", style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        "NovaBeats collects zero user data. No analytics, no tracking, no accounts. Everything stays on your device.",
+                        "Raga collects zero user data. No analytics, no tracking, no accounts. Everything stays on your device.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -155,10 +155,10 @@ fun AboutScreen() {
             Text("Music Sources", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
         }
         item {
-            Card(modifier = Modifier.fillMaxWidth().clickable { uriHandler.openUri("https://www.jamendo.com") }) {
+            Card(modifier = Modifier.fillMaxWidth().clickable { uriHandler.openUri("https://www.jiosaavn.com") }) {
                 ListItem(
-                    headlineContent   = { Text("Jamendo") },
-                    supportingContent = { Text("Creative Commons licensed music — free for everyone") },
+                    headlineContent   = { Text("JioSaavn") },
+                    supportingContent = { Text("Bollywood and Indian music — free catalog") },
                     trailingContent   = { Icon(Icons.Default.OpenInNew, null, Modifier.size(16.dp)) }
                 )
             }
@@ -214,7 +214,7 @@ fun AboutScreen() {
                     Text("Disclaimer", style = MaterialTheme.typography.labelLarge, fontWeight = FontWeight.Bold)
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        "NovaBeats is not affiliated with YouTube, Google, Spotify, Apple, or any commercial music service. All music accessed through this app is either Creative Commons licensed or in the public domain. Music rights belong to their respective creators.",
+                        "Raga is not affiliated with YouTube, Google, Spotify, Apple, or any commercial music service. All music accessed through this app is from freely available public APIs. Music rights belong to their respective creators.",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

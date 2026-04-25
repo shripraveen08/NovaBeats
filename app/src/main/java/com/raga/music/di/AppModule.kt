@@ -6,7 +6,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector
-import com.raga.music.data.local.NovaBeatDatabase
+import com.raga.music.data.local.RagaDatabase
 import com.raga.music.data.local.dao.*
 import com.raga.music.data.remote.archive.ArchiveApiService
 import com.raga.music.data.remote.jiosaavn.JioSaavnApiService
@@ -30,15 +30,15 @@ object AppModule {
     // ─── Database ─────────────────────────────────────────────────────────────
 
     @Provides @Singleton
-    fun provideDatabase(@ApplicationContext ctx: Context): NovaBeatDatabase =
-        Room.databaseBuilder(ctx, NovaBeatDatabase::class.java, "novabeats.db")
+    fun provideDatabase(@ApplicationContext ctx: Context): RagaDatabase =
+        Room.databaseBuilder(ctx, RagaDatabase::class.java, "raga.db")
             .fallbackToDestructiveMigration()
             .build()
 
-    @Provides fun provideSongDao(db: NovaBeatDatabase): SongDao = db.songDao()
-    @Provides fun providePlaylistDao(db: NovaBeatDatabase): PlaylistDao = db.playlistDao()
-    @Provides fun provideRecentDao(db: NovaBeatDatabase): RecentlyPlayedDao = db.recentlyPlayedDao()
-    @Provides fun provideDownloadDao(db: NovaBeatDatabase): DownloadDao = db.downloadDao()
+    @Provides fun provideSongDao(db: RagaDatabase): SongDao = db.songDao()
+    @Provides fun providePlaylistDao(db: RagaDatabase): PlaylistDao = db.playlistDao()
+    @Provides fun provideRecentDao(db: RagaDatabase): RecentlyPlayedDao = db.recentlyPlayedDao()
+    @Provides fun provideDownloadDao(db: RagaDatabase): DownloadDao = db.downloadDao()
 
     // ─── OkHttp ───────────────────────────────────────────────────────────────
 

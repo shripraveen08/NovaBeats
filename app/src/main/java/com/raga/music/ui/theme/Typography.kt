@@ -6,7 +6,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.raga.music.R
 
 val RagaTypography = Typography(
     displayLarge  = TextStyle(fontWeight = FontWeight.Bold,   fontSize = 57.sp, letterSpacing = (-0.25).sp),

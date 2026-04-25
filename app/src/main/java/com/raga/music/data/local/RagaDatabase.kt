@@ -16,7 +16,7 @@ import com.raga.music.data.local.entities.*
     version = 1,
     exportSchema = false
 )
-abstract class NovaBeatDatabase : RoomDatabase() {
+abstract class RagaDatabase : RoomDatabase() {
     abstract fun songDao(): SongDao
     abstract fun playlistDao(): PlaylistDao
     abstract fun recentlyPlayedDao(): RecentlyPlayedDao

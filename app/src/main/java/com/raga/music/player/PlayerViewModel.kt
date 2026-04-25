@@ -58,7 +58,7 @@ class PlayerViewModel @Inject constructor(
     private fun connectToService() {
         val token = SessionToken(
             context,
-            ComponentName(context, NovaBeatPlayerService::class.java)
+            ComponentName(context, RagaPlayerService::class.java)
         )
 
         controllerFuture = MediaController.Builder(context, token).buildAsync()
